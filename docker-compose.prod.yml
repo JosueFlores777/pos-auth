@@ -1,0 +1,12 @@
+version: '3'
+services:  
+  auth:
+    image: pagos-auth
+    build:
+      context: .
+      dockerfile: src/WebApi/DockerfileProd
+    ports:
+        - 8081:80
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - TZ=America/Tegucigalpa  
