@@ -33,7 +33,7 @@ namespace Aplicacion.CommandHandlers.Importador
         public override IResponse Handle(EditarImportador message)
         {
             var importardor = importadorRepository.GetById(message.Importador.Id.Value);
-            var impo = mapper.Map<Dominio.Models.Importardor>(message.Importador);
+            var impo = mapper.Map<Dominio.Models.Cliente>(message.Importador);
             var CorreoViejo = importardor.Correo;
             var cambioCorreo = importardor.Correo != message.Importador.Correo;
             importardor.ActulizarImportador(impo);

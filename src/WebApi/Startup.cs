@@ -60,7 +60,7 @@ namespace WebApi
                .ConfigureRunner(rb => rb
                    .AddSqlServer()
                    .WithGlobalConnectionString(Configuration.GetConnectionString("DefaultConnection"))
-                   .ScanIn(typeof(FirstMigrations).Assembly).For.Migrations());
+                   .ScanIn(typeof(InitialCreate).Assembly).For.Migrations());
             
         }
 

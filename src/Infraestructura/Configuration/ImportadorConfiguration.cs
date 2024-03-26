@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Infraestructura.Configuration
 {
-    public class ImportadorConfiguration : IEntityTypeConfiguration<Importardor>
+    public class ImportadorConfiguration : IEntityTypeConfiguration<Cliente>
     {
-        public void Configure(EntityTypeBuilder<Importardor> builder)
+        public void Configure(EntityTypeBuilder<Cliente> builder)
         {
             builder.Property(c => c.Correo).HasMaxLength(50);
             builder.Property(c => c.Identificador).HasMaxLength(50);

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dominio.Especificaciones
 {
-    public class BuscarImportadorPorIdentificadorYAccesoAprobado : ISpecification<Importardor>
+    public class BuscarImportadorPorIdentificadorYAccesoAprobado : ISpecification<Cliente>
     { 
     private readonly string identificador;
 
@@ -14,9 +14,9 @@ namespace Dominio.Especificaciones
         this.identificador = identificador;
     }
 
-    public Func<Importardor, bool> Traer()
+    public Func<Cliente, bool> Traer()
     {
-        return new Func<Importardor, bool>(c => c.AccesoAprobado==true && c.Identificador.Replace("-", "").Trim() == identificador.Replace("-", "").Trim());
+        return new Func<Cliente, bool>(c => c.AccesoAprobado==true && c.Identificador.Replace("-", "").Trim() == identificador.Replace("-", "").Trim());
 
     }
 }

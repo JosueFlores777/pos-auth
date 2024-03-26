@@ -93,7 +93,7 @@ namespace Infraestructura.Migrations
                     b.ToTable("catalogo");
                 });
 
-            modelBuilder.Entity("Dominio.Models.Importardor", b =>
+            modelBuilder.Entity("Dominio.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +190,7 @@ namespace Infraestructura.Migrations
 
                     b.HasIndex("UsuarioGentionId");
 
-                    b.ToTable("importador");
+                    b.ToTable("cliente");
                 });
 
             modelBuilder.Entity("Dominio.Models.Permiso", b =>
@@ -668,7 +668,7 @@ namespace Infraestructura.Migrations
                             Activo = true,
                             CambiarContrasena = false,
                             Contrasena = "52A5D13A7FD60FFFFF425FA65C3830A165969AA983F06C365E48BAC0F8C75CD9",
-                            FechaRegistro = new DateTime(2022, 11, 10, 23, 3, 51, 874, DateTimeKind.Local).AddTicks(1065),
+                            FechaRegistro = new DateTime(2024, 3, 25, 20, 46, 10, 606, DateTimeKind.Local).AddTicks(1145),
                             IdentificadorAcceso = "admin@gmail.com",
                             Nombre = "Administrador del sistema",
                             TipoUsuario = "usuario-interno"
@@ -748,7 +748,7 @@ namespace Infraestructura.Migrations
                         .HasForeignKey("UsuarioID");
                 });
 
-            modelBuilder.Entity("Dominio.Models.Importardor", b =>
+            modelBuilder.Entity("Dominio.Models.Cliente", b =>
                 {
                     b.HasOne("Dominio.Models.Archivo", "Archivo")
                         .WithMany()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dominio.Models
 {
-    public class Importardor : IEntity
+    public class Cliente : IEntity
     {
         public static string TipoIngresoManual = "manual";
 
@@ -75,7 +75,7 @@ namespace Dominio.Models
             AccesoAprobado = false;
             MotivoRechazo = motivoRechazo;
         }
-        public void ActulizarImportador(Importardor imporN)
+        public void ActulizarImportador(Cliente imporN)
         {
             this.MunicipioId = imporN.MunicipioId;
             this.DepartamentoId = imporN.DepartamentoId;

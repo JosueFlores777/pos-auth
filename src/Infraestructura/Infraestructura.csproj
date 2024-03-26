@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20220402013315_AddFirstMigration.Designer.cs" />
     <Compile Remove="Migrations\20220508223428_FirstMigrationss.cs" />
     <Compile Remove="Migrations\20220508223428_FirstMigrationss.Designer.cs" />
+    <Compile Remove="Migrations\20240326024411_ClienteTest.cs" />
+    <Compile Remove="Migrations\20240326024411_ClienteTest.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

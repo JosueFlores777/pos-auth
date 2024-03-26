@@ -21,7 +21,7 @@ namespace Aplicacion.CommandHandlers.Importador
 
         public override IResponse Handle(CrearImportador message)
         {
-            var importador = mapper.Map<Dominio.Models.Importardor>(message.Importador);
+            var importador = mapper.Map<Dominio.Models.Cliente>(message.Importador);
             importador.CorreoVerificado = false;
             var importadorCreado = importadorRepository.Create(importador);
             return mapper.Map<DtoImportador>(importadorCreado);

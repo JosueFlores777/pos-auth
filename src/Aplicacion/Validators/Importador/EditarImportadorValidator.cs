@@ -36,7 +36,7 @@ namespace Aplicacion.Validators.Importador
         {
             var imp = importadorRepository.GetById(importador.Id.Value);
 
-            var todosConMismoCorreo = importadorRepository.Filter(new Func<Importardor, bool>(p => p.Correo == importador.Correo));
+            var todosConMismoCorreo = importadorRepository.Filter(new Func<Cliente, bool>(p => p.Correo == importador.Correo));
             if (todosConMismoCorreo.Count() == 0) return true;
             if (todosConMismoCorreo.Count() > 1) return false;
             if (todosConMismoCorreo.Count() == 1 && todosConMismoCorreo.First().Correo == imp.Correo) return true;

@@ -26,9 +26,9 @@ namespace Aplicacion.CommandHandlers.Importador
         public override IResponse Handle(SolicitarAcceso message)
         {
             
-            var importador = mapper.Map<Dominio.Models.Importardor>(message.Importador);
+            var importador = mapper.Map<Dominio.Models.Cliente>(message.Importador);
             importador.SolicitarAcceso();
-            var impotadorBusquedad = importadorRepository.Filter(new Func<Importardor, bool>(c => c.Identificador == message.Importador.Identificador)).FirstOrDefault();
+            var impotadorBusquedad = importadorRepository.Filter(new Func<Cliente, bool>(c => c.Identificador == message.Importador.Identificador)).FirstOrDefault();
             if (impotadorBusquedad == null)
             {
                 importadorRepository.Create(importador);

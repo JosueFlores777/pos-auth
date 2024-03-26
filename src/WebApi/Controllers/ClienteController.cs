@@ -13,11 +13,11 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ImportadorController : ControllerBase
+    public class ClienteController : ControllerBase
     {
         public ICommandBus CommandBus { get; private set; }
 
-        public ImportadorController(ICommandBus commandBus)
+        public ClienteController(ICommandBus commandBus)
         {
             CommandBus = commandBus;
         }

@@ -4,9 +4,9 @@ using Dominio.Repositories.Extensiones;
 
 namespace Dominio.Repositories
 {
-   public interface IImportadorRepository : IGenericRepository<Importardor>
+   public interface IImportadorRepository : IGenericRepository<Cliente>
     {
-        Importardor GetByIdConDependencias(int id);
-        IPagina<Importardor> Filter(IConsulta ownerParameters, string especificaciones);
+        Cliente GetByIdConDependencias(int id);
+        IPagina<Cliente> Filter(IConsulta ownerParameters, string especificaciones);
     }
 }

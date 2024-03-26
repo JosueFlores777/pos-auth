@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Dominio.Especificaciones
 {
-   public class BuscarImportadorConCorreoEnviado : ISpecification<Importardor>
+   public class BuscarImportadorConCorreoEnviado : ISpecification<Cliente>
     {
         private readonly int id;
 
         public BuscarImportadorConCorreoEnviado(int id) {
             this.id = id;
         }
-        public Func<Importardor, bool> Traer()
+        public Func<Cliente, bool> Traer()
         {
-            return new Func<Importardor, bool>(c => c.Id == id && c.CorreoEnviado==true);
+            return new Func<Cliente, bool>(c => c.Id == id && c.CorreoEnviado==true);
         }
     }
 }

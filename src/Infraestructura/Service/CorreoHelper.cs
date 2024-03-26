@@ -139,7 +139,7 @@ namespace Infraestructura.Service
             smtpClient.Send(message);
         }
 
-        public void EnviarCorreoAccesosImportador(Importardor importador)
+        public void EnviarCorreoAccesosImportador(Cliente importador)
         {
 
             var html = ReadResource(rutaAccesosImportador);

@@ -41,7 +41,7 @@ namespace Migrations
                     // Set the connection string
                     .WithGlobalConnectionString("Server=3.228.164.208;Database=pos;User Id=sa;Password=SapiAdmin2020;")
                     // Define the assembly containing the migrations
-                    .ScanIn(typeof(FirstMigrations).Assembly).For.Migrations())
+                    .ScanIn(typeof(InitialCreate).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 // Build the service provider

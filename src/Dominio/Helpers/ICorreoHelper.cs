@@ -12,7 +12,7 @@ namespace Dominio.Helpers
         void EnviarCorreoParaVerificacion(string correoDestino, string tokenVerificacion);
         void EnviarCorreoParaActulizacion(string correoDestino, string tokenVerificacion,DateTime fechaActulizacion, string correoNuevo);
         void EnviarCorreoDenegacionAcceso(string correoDestino, string motivo);
-        void EnviarCorreoAccesosImportador(Importardor importador);
+        void EnviarCorreoAccesosImportador(Cliente importador);
         void EnviarCorreoRolCreado(string Usuario, string NombreRol);
         void EnviarCorreoRolEditado(string Usuario, string NombreRol);
         void EnviarCorreoModificarSolicitud(List<string> correoDestino, string motivo, string CodigoTemporal);

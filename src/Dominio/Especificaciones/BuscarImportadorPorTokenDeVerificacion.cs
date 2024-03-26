@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dominio.Especificaciones
 {
-    public class BuscarImportadorPorTokenDeVerificacion : ISpecification<Importardor>
+    public class BuscarImportadorPorTokenDeVerificacion : ISpecification<Cliente>
     {
         private readonly string token;
 
@@ -15,9 +15,9 @@ namespace Dominio.Especificaciones
             this.token = token;
         }
 
-        public Func<Importardor, bool> Traer()
+        public Func<Cliente, bool> Traer()
         {
-            return new Func<Importardor, bool>(c => c.TokenVerificacion == token);
+            return new Func<Cliente, bool>(c => c.TokenVerificacion == token);
 
         }
     }

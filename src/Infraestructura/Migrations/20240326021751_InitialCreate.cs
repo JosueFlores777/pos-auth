@@ -3,28 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infraestructura.Migrations
 {
-    public partial class FirstMigrations : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Archivo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: true),
-                    Activo = table.Column<bool>(nullable: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: true),
-                    FechaEliminacion = table.Column<DateTime>(nullable: true),
-                    PathFisico = table.Column<string>(nullable: true),
-                    UsuarioId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Archivo", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "catalogo",
                 columns: table => new
@@ -93,6 +75,7 @@ namespace Infraestructura.Migrations
                     IdentificadorAcceso = table.Column<string>(maxLength: 100, nullable: true),
                     Activo = table.Column<bool>(nullable: false),
                     Contrasena = table.Column<string>(nullable: true),
+                    CodigoTemporal = table.Column<string>(nullable: true),
                     DepartamentoId = table.Column<int>(nullable: true),
                     CambiarContrasena = table.Column<bool>(nullable: false),
                     FechaRegistro = table.Column<DateTime>(nullable: true),
@@ -138,12 +121,118 @@ namespace Infraestructura.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Archivo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(nullable: true),
+                    Activo = table.Column<bool>(nullable: false),
+                    FechaRegistro = table.Column<DateTime>(nullable: true),
+                    FechaEliminacion = table.Column<DateTime>(nullable: true),
+                    PathFisico = table.Column<string>(nullable: true),
+                    ContentType = table.Column<string>(nullable: true),
+                    Indentificador = table.Column<string>(nullable: true),
+                    UsuarioID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Archivo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Archivo_usuario_UsuarioID",
+                        column: x => x.UsuarioID,
+                        principalTable: "usuario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "usuarioArea",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AreaId = table.Column<int>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuarioArea", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_usuarioArea_catalogo_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "catalogo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_usuarioArea_usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "usuario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "usuarioRegional",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegionalId = table.Column<int>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuarioRegional", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_usuarioRegional_catalogo_RegionalId",
+                        column: x => x.RegionalId,
+                        principalTable: "catalogo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_usuarioRegional_usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "usuario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "usuarioRol",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RolId = table.Column<int>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuarioRol", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_usuarioRol_rol_RolId",
+                        column: x => x.RolId,
+                        principalTable: "rol",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_usuarioRol_usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "usuario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "importador",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TipoIdentificadorId = table.Column<int>(nullable: false),
                     Identificador = table.Column<string>(maxLength: 50, nullable: true),
+                    TipoPersonaId = table.Column<int>(nullable: false),
                     Nombre = table.Column<string>(nullable: true),
                     NacionalidadId = table.Column<int>(nullable: false),
                     Telefono = table.Column<string>(nullable: true),
@@ -179,7 +268,8 @@ namespace Infraestructura.Migrations
                         name: "FK_importador_catalogo_DepartamentoId",
                         column: x => x.DepartamentoId,
                         principalTable: "catalogo",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_importador_catalogo_MunicipioId",
                         column: x => x.MunicipioId,
@@ -191,66 +281,19 @@ namespace Infraestructura.Migrations
                         principalTable: "catalogo",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_importador_catalogo_TipoIdentificadorId",
+                        column: x => x.TipoIdentificadorId,
+                        principalTable: "catalogo",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_importador_catalogo_TipoPersonaId",
+                        column: x => x.TipoPersonaId,
+                        principalTable: "catalogo",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_importador_usuario_UsuarioGentionId",
                         column: x => x.UsuarioGentionId,
                         principalTable: "usuario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "usuarioRol",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RolId = table.Column<int>(nullable: false),
-                    UsuarioId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_usuarioRol", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_usuarioRol_rol_RolId",
-                        column: x => x.RolId,
-                        principalTable: "rol",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_usuarioRol_usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "usuario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImportadorAccesos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccesoId = table.Column<int>(nullable: false),
-                    FechaCreacion = table.Column<DateTime>(nullable: false),
-                    UsuarioCreo = table.Column<int>(nullable: false),
-                    FechaModificacion = table.Column<DateTime>(nullable: true),
-                    UsuarioModifica = table.Column<int>(nullable: true),
-                    Activo = table.Column<bool>(nullable: false),
-                    ImportardorId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImportadorAccesos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ImportadorAccesos_rol_AccesoId",
-                        column: x => x.AccesoId,
-                        principalTable: "rol",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ImportadorAccesos_importador_ImportardorId",
-                        column: x => x.ImportardorId,
-                        principalTable: "importador",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -290,35 +333,30 @@ namespace Infraestructura.Migrations
 
             migrationBuilder.InsertData(
                 table: "usuario",
-                columns: new[] { "Id", "Activo", "CambiarContrasena", "Contrasena", "DepartamentoId", "FechaActualizacion", "FechaRegistro", "FechaRestableceContrasena", "IdentificadorAcceso", "Nombre", "TipoUsuario" },
-                values: new object[] { 1, true, false, "52A5D13A7FD60FFFFF425FA65C3830A165969AA983F06C365E48BAC0F8C75CD9", null, null, new DateTime(2022, 5, 8, 16, 24, 18, 966, DateTimeKind.Local).AddTicks(672), null, "admin@gmail.com", "Administrador del sistema", "usuario-interno" });
+                columns: new[] { "Id", "Activo", "CambiarContrasena", "CodigoTemporal", "Contrasena", "DepartamentoId", "FechaActualizacion", "FechaRegistro", "FechaRestableceContrasena", "IdentificadorAcceso", "Nombre", "TipoUsuario" },
+                values: new object[] { 1, true, false, null, "52A5D13A7FD60FFFFF425FA65C3830A165969AA983F06C365E48BAC0F8C75CD9", null, null, new DateTime(2024, 3, 25, 20, 17, 51, 43, DateTimeKind.Local).AddTicks(4102), null, "admin@gmail.com", "Administrador del sistema", "usuario-interno" });
 
             migrationBuilder.InsertData(
                 table: "rolPermiso",
                 columns: new[] { "Id", "PermisoId", "RolId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1 },
-                    { 2 ,2, 1 },
-                    { 3, 3, 1 },
-                    { 4, 4, 1 },
-                    { 5, 5, 1 },
-                    { 6, 6, 1 },
-                    { 7, 7, 1 },
-                    { 8, 8, 1 },
-                    { 9, 9, 1 },
-                    { 10, 10, 1 },
-                    { 11, 11, 1 },
-                    { 12, 12, 1 },
-                    { 13, 13, 1 },
-                    { 14, 14, 1 },
-                    { 15, 15, 1 },
-                    { 16, 16, 1 },
-                    { 17, 17, 1 },
-                    { 18, 18, 1 },
-                    { 19, 19, 1 },
-                    { 20, 20, 1 }
+                    { 13, 1, 1 },
+                    { 14, 3, 1 },
+                    { 15, 4, 1 },
+                    { 16, 5, 1 },
+                    { 17, 7, 1 },
+                    { 18, 9, 1 },
+                    { 19, 10, 1 },
+                    { 20, 11, 1 },
+                    { 21, 12, 1 },
+                    { 22, 2, 1 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Archivo_UsuarioID",
+                table: "Archivo",
+                column: "UsuarioID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_importador_ArchivoId",
@@ -341,19 +379,19 @@ namespace Infraestructura.Migrations
                 column: "NacionalidadId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_importador_TipoIdentificadorId",
+                table: "importador",
+                column: "TipoIdentificadorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_importador_TipoPersonaId",
+                table: "importador",
+                column: "TipoPersonaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_importador_UsuarioGentionId",
                 table: "importador",
                 column: "UsuarioGentionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImportadorAccesos_AccesoId",
-                table: "ImportadorAccesos",
-                column: "AccesoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImportadorAccesos_ImportardorId",
-                table: "ImportadorAccesos",
-                column: "ImportardorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_rolPermiso_PermisoId",
@@ -378,6 +416,26 @@ namespace Infraestructura.Migrations
                 filter: "[IdentificadorAcceso] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_usuarioArea_AreaId",
+                table: "usuarioArea",
+                column: "AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuarioArea_UsuarioId",
+                table: "usuarioArea",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuarioRegional_RegionalId",
+                table: "usuarioRegional",
+                column: "RegionalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuarioRegional_UsuarioId",
+                table: "usuarioRegional",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_usuarioRol_RolId",
                 table: "usuarioRol",
                 column: "RolId");
@@ -391,25 +449,28 @@ namespace Infraestructura.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ImportadorAccesos");
+                name: "importador");
 
             migrationBuilder.DropTable(
                 name: "rolPermiso");
 
             migrationBuilder.DropTable(
+                name: "usuarioArea");
+
+            migrationBuilder.DropTable(
+                name: "usuarioRegional");
+
+            migrationBuilder.DropTable(
                 name: "usuarioRol");
 
             migrationBuilder.DropTable(
-                name: "importador");
+                name: "Archivo");
 
             migrationBuilder.DropTable(
                 name: "permiso");
 
             migrationBuilder.DropTable(
                 name: "rol");
-
-            migrationBuilder.DropTable(
-                name: "Archivo");
 
             migrationBuilder.DropTable(
                 name: "usuario");

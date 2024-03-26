@@ -13,9 +13,9 @@ namespace Aplicacion.Validators.Importador
     {
         public CrearImportadorValidator(IImportadorRepository importadorRepository, IAutenticationHelper autenticationHelper) : base(autenticationHelper)
         {
-            RuleFor(x => x.Importador.Nombre).NotEmpty().Must(c => importadorRepository.Filter(new Func<Dominio.Models.Importardor, bool>(p => p.Nombre == c)).Count() == 0)
+            RuleFor(x => x.Importador.Nombre).NotEmpty().Must(c => importadorRepository.Filter(new Func<Dominio.Models.Cliente, bool>(p => p.Nombre == c)).Count() == 0)
                 .WithMessage("Ya existe un Importador con el mismo nombre");
-            RuleFor(x => x.Importador.Identificador).NotEmpty().Must(c => importadorRepository.Filter(new Func<Dominio.Models.Importardor, bool>(p => p.Identificador == c)).Count() == 0)
+            RuleFor(x => x.Importador.Identificador).NotEmpty().Must(c => importadorRepository.Filter(new Func<Dominio.Models.Cliente, bool>(p => p.Identificador == c)).Count() == 0)
                 .WithMessage("Ya existe un Importador con el mismo Identificador");
             RuleFor(x => x.Importador.Identificador).NotEmpty();
             RuleFor(x => x.Importador.NacionalidadId).NotEmpty();

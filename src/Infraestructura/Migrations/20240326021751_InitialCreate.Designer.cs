@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructura.Migrations
 {
     [DbContext(typeof(AutenticationContext))]
-    [Migration("20221101174832_AddTipoPersona")]
-    partial class AddTipoPersona
+    [Migration("20240326021751_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,11 +31,17 @@ namespace Infraestructura.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("FechaEliminacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("FechaRegistro")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Indentificador")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
@@ -43,10 +49,12 @@ namespace Infraestructura.Migrations
                     b.Property<string>("PathFisico")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Archivo");
                 });
@@ -85,43 +93,6 @@ namespace Infraestructura.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("catalogo");
-                });
-
-            modelBuilder.Entity("Dominio.Models.ImportadorAccesos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccesoId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ImportardorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuarioCreo")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsuarioModifica")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccesoId");
-
-                    b.HasIndex("ImportardorId");
-
-                    b.ToTable("ImportadorAccesos");
                 });
 
             modelBuilder.Entity("Dominio.Models.Importardor", b =>
@@ -699,7 +670,7 @@ namespace Infraestructura.Migrations
                             Activo = true,
                             CambiarContrasena = false,
                             Contrasena = "52A5D13A7FD60FFFFF425FA65C3830A165969AA983F06C365E48BAC0F8C75CD9",
-                            FechaRegistro = new DateTime(2022, 11, 1, 11, 48, 32, 243, DateTimeKind.Local).AddTicks(7885),
+                            FechaRegistro = new DateTime(2024, 3, 25, 20, 17, 51, 43, DateTimeKind.Local).AddTicks(4102),
                             IdentificadorAcceso = "admin@gmail.com",
                             Nombre = "Administrador del sistema",
                             TipoUsuario = "usuario-interno"
@@ -772,17 +743,11 @@ namespace Infraestructura.Migrations
                     b.ToTable("usuarioRol");
                 });
 
-            modelBuilder.Entity("Dominio.Models.ImportadorAccesos", b =>
+            modelBuilder.Entity("Dominio.Models.Archivo", b =>
                 {
-                    b.HasOne("Dominio.Models.Rol", "Acceso")
+                    b.HasOne("Dominio.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("AccesoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dominio.Models.Importardor", null)
-                        .WithMany("Accesos")
-                        .HasForeignKey("ImportardorId");
+                        .HasForeignKey("UsuarioID");
                 });
 
             modelBuilder.Entity("Dominio.Models.Importardor", b =>

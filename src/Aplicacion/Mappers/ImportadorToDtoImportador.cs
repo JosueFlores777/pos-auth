@@ -13,18 +13,18 @@ namespace Aplicacion.Mappers
     {
         public ImportadorToDtoImportador() 
         {
-            CreateMap<IPagina<Importardor>, Metadata>();
-            CreateMap<Importardor, DtoImportador>().ReverseMap();
+            CreateMap<IPagina<Cliente>, Metadata>();
+            CreateMap<Cliente, DtoImportador>().ReverseMap();
             CreateMap<TipoProductoResponse, DtoTipoProducto>().ReverseMap();
             CreateMap<DtoTipoProducto, TipoProductoResponse>().ReverseMap();
 
-            CreateMap<IPagina<Importardor>, DtoImportadoresPaginados>().ForMember(c => c.Metadata, f => f.MapFrom(c => Getmetadata(c)))
+            CreateMap<IPagina<Cliente>, DtoImportadoresPaginados>().ForMember(c => c.Metadata, f => f.MapFrom(c => Getmetadata(c)))
                .ForMember(c => c.valores, f => f.MapFrom((g, orderDto, i, context) => Mapvalores(g, context)));
         }
 
 
 
-        private IEnumerable<DtoImportador> Mapvalores(IEnumerable<Importardor> importadores, ResolutionContext context)
+        private IEnumerable<DtoImportador> Mapvalores(IEnumerable<Cliente> importadores, ResolutionContext context)
         {
            
             var lista = new List<DtoImportador>();

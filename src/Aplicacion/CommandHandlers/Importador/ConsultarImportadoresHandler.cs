@@ -19,7 +19,7 @@ namespace Aplicacion.CommandHandlers.Importador
         }
         public override IResponse Handle(ConsultarImportadores message)
         {
-            IPagina<Dominio.Models.Importardor> respuesta;
+            IPagina<Dominio.Models.Cliente> respuesta;
             if (!string.IsNullOrWhiteSpace(message.identificador))
             {
                 respuesta = importadorRepository.ConsultarPaginado(message, new BuscarImportadorPorIdentificador(message.identificador));
