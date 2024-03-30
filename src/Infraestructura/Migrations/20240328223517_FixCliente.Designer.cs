@@ -4,14 +4,16 @@ using Infraestructura.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infraestructura.Migrations
 {
     [DbContext(typeof(AutenticationContext))]
-    partial class AutenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20240328223517_FixCliente")]
+    partial class FixCliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -678,7 +680,7 @@ namespace Infraestructura.Migrations
                             Activo = true,
                             CambiarContrasena = false,
                             Contrasena = "52A5D13A7FD60FFFFF425FA65C3830A165969AA983F06C365E48BAC0F8C75CD9",
-                            FechaRegistro = new DateTime(2024, 3, 29, 10, 54, 37, 639, DateTimeKind.Local).AddTicks(4263),
+                            FechaRegistro = new DateTime(2024, 3, 28, 16, 35, 17, 250, DateTimeKind.Local).AddTicks(3573),
                             IdentificadorAcceso = "admin@gmail.com",
                             Nombre = "Administrador del sistema",
                             TipoUsuario = "usuario-interno"

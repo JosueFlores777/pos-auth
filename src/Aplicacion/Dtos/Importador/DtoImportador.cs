@@ -28,7 +28,10 @@ namespace Aplicacion.Dtos.Importador
         public DateTime FechaModificacion { get; set; }
         public DateTime FechaEliminacion { get; set; }
         public bool CorreoEnviado { get; set; }
-
+        public int MarcaId { get; set; }
+        public DtoCatalogo Marca { get; set; }
+        public int ModeloId { get; set; }
+        public DtoCatalogo Modelo { get; set; }
         public int? ArchivoId { get; set; }
         public IList<ImportadorAccesosDto> Accesos { get; set; }
         public bool AccesoAprobado { get; set; }
