@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructura.Migrations
 {
     [DbContext(typeof(AutenticationContext))]
-    [Migration("20240326024611_ClienteTest2")]
-    partial class ClienteTest2
+    [Migration("20240403040912_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,6 +146,12 @@ namespace Infraestructura.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModeloId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MotivoRechazo")
                         .HasColumnType("nvarchar(max)");
 
@@ -181,6 +187,10 @@ namespace Infraestructura.Migrations
                     b.HasIndex("ArchivoId");
 
                     b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("MarcaId");
+
+                    b.HasIndex("ModeloId");
 
                     b.HasIndex("MunicipioId");
 
@@ -670,7 +680,7 @@ namespace Infraestructura.Migrations
                             Activo = true,
                             CambiarContrasena = false,
                             Contrasena = "52A5D13A7FD60FFFFF425FA65C3830A165969AA983F06C365E48BAC0F8C75CD9",
-                            FechaRegistro = new DateTime(2024, 3, 25, 20, 46, 10, 606, DateTimeKind.Local).AddTicks(1145),
+                            FechaRegistro = new DateTime(2024, 4, 2, 22, 9, 12, 384, DateTimeKind.Local).AddTicks(7594),
                             IdentificadorAcceso = "admin@gmail.com",
                             Nombre = "Administrador del sistema",
                             TipoUsuario = "usuario-interno"
@@ -759,6 +769,18 @@ namespace Infraestructura.Migrations
                     b.HasOne("Dominio.Models.Catalogo", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Models.Catalogo", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Models.Catalogo", "Modelo")
+                        .WithMany()
+                        .HasForeignKey("ModeloId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
