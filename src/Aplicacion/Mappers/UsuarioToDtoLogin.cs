@@ -24,11 +24,7 @@ namespace Aplicacion.Mappers
         public IList<DtoRol> GetRoles(IList<UsuarioRol> usuarioRol, Usuario usuario, ResolutionContext context)
         {
             var respuesta = new List<DtoRol>();
-            if (usuario.IdentificadorAcceso == Usuario.correoUsuarioAdmin)
-            {
-                respuesta.Add(new DtoRol { Nombre = "Admin", PermisosConMetadata = GetAllPermisos(context) });
-                return respuesta;
-            }
+           
 
             foreach (var rol in usuarioRol)
             {
