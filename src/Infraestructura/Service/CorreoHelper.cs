@@ -130,7 +130,7 @@ namespace Infraestructura.Service
             ConfigurarImagenes(htmlView);
             MailMessage message = new MailMessage
             {
-                From = new MailAddress(configuration.GetValue<string>("Email:Smtp:Username"), "SENASA")
+                From = new MailAddress(configuration.GetValue<string>("Email:Smtp:Username"), "GQ Racing SPORT")
             };
             message.To.Add(correoDestino);
             message.Subject = subject;
